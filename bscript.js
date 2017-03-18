@@ -58,7 +58,7 @@ console.log(info)
 
               .attr('fill', 'orange');
 
-div.html('<div class="tooltip"><span class="gdp">'+dollarSign(d[1])+' Billion</span></span><br><span class="year">'
+div.html('<div id="tooltip"><span class="gdp">'+dollarSign(d[1])+' Billion</span></span><br><span class="year">'
   +year+'-'+months[month]+'</span></div>')
           .style('display', 'inline')
           .style("left", (d3.event.clientX+5) + "px")
