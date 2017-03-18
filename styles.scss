@@ -1,0 +1,20 @@
+.chart{
+	text-align: center;
+	margin-top: 100px;
+};
+
+.hidden{
+    display: none;
+};
+
+#tooltip {
+        position: absolute;
+        width: 150px;
+        height: auto;
+        padding: 15px;
+        background-color: green;
+        border-radius: 10px;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+}
+
