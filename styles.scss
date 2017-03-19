@@ -1,3 +1,7 @@
+body{
+    background-image: url('http://cdn.backgroundhost.com/backgrounds/subtlepatterns/green_dust_scratch.png')
+}
+
 .chart{
 	text-align: center;
 	margin-top: 100px;
@@ -7,14 +11,18 @@
     display: none;
 };
 
-#tooltip {
-        position: absolute;
-        width: 150px;
+.tooltip1 {
+        width: 130px;
         height: auto;
-        padding: 15px;
-        background-color: green;
+        padding: 3px;
+        background-color: #b2b2b2;
         border-radius: 10px;
         box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
         pointer-events: none;
+}
+
+svg{
+    background: white;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
 }
 
