@@ -88,7 +88,7 @@ div.html('<div class="tooltip1"><span class="gdp">'+dollarSign(d[1])+' Billion</
            })
            .transition()
            .duration( function () { return duration += 25; })
-        //.ease(d3.easeElasticInOut)
+        //.ease(d3.easeElasticInOut)//cause height errors in console;
         .ease((...args) => {
           let ease = d3.easeElasticInOut(...args);
           return ease < 0 ? 0 : ease;
