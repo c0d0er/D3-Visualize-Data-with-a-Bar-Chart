@@ -15,7 +15,7 @@ class Bar extends React.Component {
     let dollarSign=d3.format('$,.2f');
     const months=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-console.log(info)
+//console.log(info)
     /*let xScale=d3.scaleLinear()
                  .domain([0, d3.max(info, d=>d[1])])
                  //.range([padding, w-padding*2]);
@@ -24,21 +24,25 @@ console.log(info)
     let yScale=d3.scaleLinear()
                  .domain([0, d3.max(info, d=>d[1])])
                  .range([h, 0]);
-let duration = 500, delay = 50;
+let duration = 500, delay = 50;//for ease function;
 
     let minTime=new Date(info[0][0]); 
     let maxTime=new Date(info[info.length-1][0]);
-    let yearScale=d3.scaleTime()
+
+    let xScale=d3.scaleTime()
                     .domain([minTime, maxTime])
                     .range([0, w]);
+      //console.log(xScale(''))
 
-    let div=d3.select('.chart').append('div');
+    let div=d3.select('.chart').append('div');//setup tooltip;
      
     let svg=d3.select('.chart')
               .append('svg')
               .attr('width', w+margin.right+margin.left)
               .attr('height', h+margin.top+margin.bottom)
+              //.call(responsivefy)//set responsive d3;
               .append("g")
+              
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
         svg.selectAll('rect')
@@ -71,7 +75,7 @@ let duration = 500, delay = 50;
               //.attr('fill', '#b2b2b2');
               .style('opacity', '0.3')
 
-div.html('<div class="tooltip1"><span class="gdp">'+dollarSign(d[1])+' Billion</span></span><br><span class="year">'
+div.html('<div class="tooltip1"><span class="gdp">'+dollarSign(d[1])+' Billion</span><br><span class="year">'
   +year+'-'+months[month]+'</span></div>')
           .style('display', 'inline')
           .style("left", (d3.event.clientX+5) + "px")
@@ -90,7 +94,9 @@ div.html('<div class="tooltip1"><span class="gdp">'+dollarSign(d[1])+' Billion</
            .duration( function () { return duration += 25; })
         //.ease(d3.easeElasticInOut)//cause height errors in console;
         .ease((...args) => {
+          //console.log(args)
           let ease = d3.easeElasticInOut(...args);
+          //console.log(ease)
           return ease < 0 ? 0 : ease;
         })
         //.ease(d3.easeBounceOut)
@@ -106,12 +112,59 @@ div.html('<div class="tooltip1"><span class="gdp">'+dollarSign(d[1])+' Billion</
            //.append('svg:title')//simple tooltip
            //.text(d=>d[1]);//simple tooltip
 
+
+
+    // gridlines in x axis function
+      function make_x_gridlines() {   
+    return d3.axisBottom(xScale)
+        .ticks(10)
+}
+
+// gridlines in y axis function
+function make_y_gridlines() {   
+    return d3.axisLeft(yScale)
+        .ticks(6)
+}
+// add the X gridlines
+svg.append("g")     
+      .attr("class", "grid")
+      .attr("transform", "translate(0," + h + ")")
+      .attr('opacity', 0.2)
+      .style("stroke-dasharray", "1")
+      .call(make_x_gridlines()
+          .tickSize(-h)
+          .tickSizeOuter(0)
+          .tickFormat("")
+      );
+
+  // add the Y gridlines
+  svg.append("g")     
+      .attr("class", "grid")
+      .style("stroke-dasharray", "5 5")
+      .attr('opacity', 0.2)
+      .call(make_y_gridlines()
+          .tickSize(-w)
+          .tickSizeOuter(0)
+          .tickFormat("")
+      );
+
+      svg.selectAll(".tick > line")
+    .each(function (d) {
+        if (d.getFullYear && d.getFullYear() === 2015 ) {//d===2000 will delete y axis 2000 line;
+          this.remove();
+        }
+        else if(d===18000){
+          this.remove();
+        }
+    });
+
+
         svg
         .append('g')
          .attr('class', 'axis')
            .attr('transform', 'translate(0,'+h+')')
            .style('font-size', '15px')
-           .call(d3.axisBottom(yearScale));
+           .call(d3.axisBottom(xScale));
 
         svg.append("text")
         .attr("transform", "translate(" + (w / 2) + " ," + (-17) + ")")
@@ -138,7 +191,8 @@ div.html('<div class="tooltip1"><span class="gdp">'+dollarSign(d[1])+' Billion</
          // window.open(info1.description.slice(info1.description.length/2+63, info1.description.length-1))
        // });
         let concatFormat = (format, suffix) => 
-            (d) => d3.format(format)(d) + suffix;        
+            (d) => d3.format(format)(d) + suffix; 
+                   
         svg.append('g')
         .attr('class', 'axis')
            .attr('transform', 'translate('+0+',0)')
@@ -156,6 +210,25 @@ div.html('<div class="tooltip1"><span class="gdp">'+dollarSign(d[1])+' Billion</
         .attr("dy", "1.5em")
         .style("text-anchor", "end")
         .text("Gross Domestic Product, USA");
+
+
+
+      /*  function responsivefy(svg) {// responsive d3
+  var container = d3.select(svg.node().parentNode),
+      width  = parseInt(svg.style("width")),
+      height = parseInt(svg.style("height")),
+      aspect = width / height;
+  svg.attr("viewBox", "0 0 " + width + " " + height)
+      .attr("preserveAspectRatio", "xMinYMid")
+      .call(resize);
+  d3.select(window).on("resize." + container.attr("id"), resize);
+  function resize() {
+      var targetWidth = parseInt(container.style("width"));
+      svg.attr("width", targetWidth);
+      svg.attr("height", Math.round(targetWidth / aspect));
+  }
+}  */
+
     })
   }
 
