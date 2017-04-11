@@ -1,5 +1,5 @@
-## Visualize-Data-with-a-Bar-Chart
-#### Check it out [here](https://c0d0er.github.io/Visualize-Data-with-a-Bar-Chart/)
+## Visualize-US-GDP-Data-with-a-Bar-Chart
+#### Check it out [here](https://c0d0er.github.io/Visualize-US-GDP-Data-with-a-Bar-Chart/)
 
 #### Fulfill the below user stories:
 - User Story: I can see US Gross Domestic Product by quarter, over time.
