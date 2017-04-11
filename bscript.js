@@ -1,6 +1,6 @@
 class Bar extends React.Component {
   componentDidMount(){
-    $.getJSON('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json', (data)=>{
+    $.getJSON('https://raw.githubusercontent.com/c0d0er/D3-Visualize-Data-with-a-Bar-Chart/master/usgdp.json', (data)=>{
       let info=data.data;
       let info1=data;
       let prev;//to set up different color of gdp bar;
@@ -14,8 +14,6 @@ class Bar extends React.Component {
     let h=500-margin.top-margin.bottom;
     let dollarSign=d3.format('$,.2f');
     const months=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-//console.log(info)
     /*let xScale=d3.scaleLinear()
                  .domain([0, d3.max(info, d=>d[1])])
                  //.range([padding, w-padding*2]);
